@@ -15,13 +15,13 @@ class ProgressBar:
         widgets = [progressbar.Percentage(), " ", progressbar.Bar(), " ", progressbar.Counter(), f"/{maxval} ", progressbar.AdaptiveETA()]
         self.bar = progressbar.ProgressBar(maxval=maxval, widgets=widgets)
 
-    def start(self):
+    def start(self) -> None:
         self.bar.start()
 
-    def stop(self):
+    def stop(self) -> None:
         self.bar.finish()
 
-    def update(self):
+    def update(self) -> None:
         self.num += 1
         self.bar.update(self.num)
 
@@ -43,9 +43,9 @@ def main():
     bar.start()
     with open(wordlist, "rb") as file:
         for line in file.readlines():
-            bar.update()
             line = line.rstrip()
             calculated_hash = secret_to_key_rfc2440(line, target_specifier)
+            bar.update()
             if calculated_hash == target_hash:
                 bar.stop()
                 print(f"[+] Found password: {line.decode()}")
@@ -114,11 +114,11 @@ def secret_to_key_rfc2440(secret: bytes, s2k_specifier: bytes) -> bytes:
 
     if key_out_len <= len(final_digest):
         return final_digest[:key_out_len]
+    else:
+        hkdf = HKDF(algorithm=hashes.SHA256(), length=key_out_len, salt=None, info=s2k_specifier[:8], backend=default_backend())
+        expanded_key = hkdf.derive(final_digest)
 
-    hkdf = HKDF(algorithm=hashes.SHA256(), length=key_out_len, salt=None, info=s2k_specifier[:8], backend=default_backend())
-    expanded_key = hkdf.derive(final_digest)
-
-    return expanded_key
+        return expanded_key
 
 
 if __name__ == "__main__":
