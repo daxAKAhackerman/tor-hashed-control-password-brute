@@ -5,7 +5,7 @@ PROGNAME := $(shell basename $(CURDIR))
 SRC_FOLDER := src
 BIN_FOLDER := bin
 
-.PHONY: default clean
+.PHONY: default build clean
 
 default: build
 

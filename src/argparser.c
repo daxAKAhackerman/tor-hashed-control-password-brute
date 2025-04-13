@@ -11,7 +11,7 @@ int validate_args(Args *args, int argc, char **argv)
     char *usage_string = "Usage: %s -t target_hash -w wordlist [-n number_of_processes]\n";
     char *usage_string_details = "  -t      The hash to crack. Looks like 16:46CAB5E3FA5F7BF4606D132C27DA06F77B574F7C14B9D75657A74F59FB\n"
                                  "  -w      File containing the list of passwords to try\n"
-                                 "  -n      The number of processes to spawn. Tune this to your number of logical processors for optimal speed\n";
+                                 "  -n      The number of processes to spawn. Tune this to your number of logical processors for optimal speed. Defaults to 1\n";
 
     // Required arguments
     int t_found, w_found;
