@@ -32,13 +32,3 @@ void hash_password(char *out, char *password, size_t password_len, char *salt, i
     EVP_MD_CTX_free(hash_ctx);
     free(data);
 }
-
-void print_hash(char *data)
-{
-    int i;
-
-    printf("SHA-1 digest: ");
-    for (i = 0; i < SHA1_DIGEST_LEN; i++)
-        printf("%hhx", data[i]);
-    printf("\n");
-}

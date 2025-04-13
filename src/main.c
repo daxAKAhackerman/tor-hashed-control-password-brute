@@ -44,12 +44,12 @@ int main(int argc, char **argv)
 
     // Open the file
     FILE *file = fopen(args.wordlist_arg, "rb");
-    int file_descriptor = fileno(file);
     if (file == NULL)
     {
         fprintf(stderr, "[!] Unable to open file\n");
         return 1;
     }
+    int file_descriptor = fileno(file);
 
     signal(SIGQUIT, sigquit_handler); // Register signal required to stop children
     for (int i = 0; i < args.num_processes_arg; i++)
@@ -87,6 +87,7 @@ int main(int argc, char **argv)
         }
     }
 
+    printf("[!] Password was not found in word list\n");
     fclose(file);
     return 1;
 }

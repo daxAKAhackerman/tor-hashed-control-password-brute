@@ -6,6 +6,4 @@
 
 void hash_password(char *out, char *password, size_t password_len, char *salt, int count);
 
-void print_hash(char *data);
-
 #endif
