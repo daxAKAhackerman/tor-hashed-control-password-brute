@@ -1,5 +1,0 @@
--i https://pypi.org/simple
-cffi==1.17.1; platform_python_implementation != 'PyPy'
-cryptography==43.0.1; python_version >= '3.7'
-progressbar==2.5
-pycparser==2.22; python_version >= '3.8'
