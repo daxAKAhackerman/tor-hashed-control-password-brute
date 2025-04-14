@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     memcpy(salt, target, SALT_LEN);             // Load the target salt
     memcpy(&count_byte, &target[SALT_LEN], 1);  // Load the iteration count byte
 
-    int count = ((int)16 + (count_byte & 15)) << ((count_byte >> 4) + 6); // Convert the iteration byte to a number as described in rfc4880
+    int count = ((int)16 + (count_byte & 15)) << ((count_byte >> 4) + EXPBIAS); // Convert the iteration byte to a number as described in rfc4880
 
     // Open the file
     FILE *file = fopen(args.wordlist_arg, "rb");
