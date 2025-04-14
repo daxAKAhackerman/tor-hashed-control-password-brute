@@ -11,6 +11,9 @@ default: build
 
 build: $(PROGNAME)
 
+debug: CFLAGS += -g
+debug: $(PROGNAME)
+
 $(PROGNAME):
 	mkdir $(BIN_FOLDER) > /dev/null 2>&1 || true
 	cd $(SRC_FOLDER) && $(CC) *.c $(CFLAGS) -o ../$(BIN_FOLDER)/$(PROGNAME)
