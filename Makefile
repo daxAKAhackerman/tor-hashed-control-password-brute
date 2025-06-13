@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 CC := gcc
-CFLAGS := -lcrypto
+CFLAGS := -lcrypto -Wall -Werror -Wextra -pedantic -std=c2x
 PROGNAME := $(shell basename $(CURDIR))
 SRC_FOLDER := src
 BIN_FOLDER := bin
