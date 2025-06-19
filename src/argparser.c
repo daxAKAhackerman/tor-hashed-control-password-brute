@@ -1,4 +1,5 @@
 #include "../include/argparser.h"
+#include "../include/color.h"
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +30,8 @@ int validate_args(Args *args, int argc, char **argv) {
     case 't':
       if (strlen(optarg) != THASH_ARG_LEN ||
           memcmp(optarg, hash_prefix, 3) != 0) {
-        fprintf(stderr, "[!] Incorrect hash format\n");
+        fprintf(stderr,
+                COLOR_BOLD_RED "[!] Incorrect hash format\n" COLOR_RESET);
         return 1;
       }
       args->target_arg = optarg;
@@ -54,7 +56,7 @@ int validate_args(Args *args, int argc, char **argv) {
   }
 
   if (!(t_found && w_found)) {
-    fprintf(stderr, "Missing argument\n");
+    fprintf(stderr, COLOR_BOLD_RED "[!] Missing argument\n" COLOR_RESET);
     fprintf(stderr, usage_string, argv[0]);
     return 1;
   }

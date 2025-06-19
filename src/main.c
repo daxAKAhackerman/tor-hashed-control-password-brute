@@ -1,6 +1,7 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include "../include/argparser.h"
+#include "../include/color.h"
 #include "../include/crypto.h"
 #include <signal.h>
 #include <stdio.h>
@@ -47,12 +48,12 @@ int main(int argc, char **argv) {
   // Open the file
   FILE *file = fopen(args.wordlist_arg, "rb");
   if (file == NULL) {
-    fprintf(stderr, "[!] Unable to open file\n");
+    fprintf(stderr, COLOR_BOLD_RED "[!] Unable to open file\n" COLOR_RESET);
     return 1;
   }
   int file_descriptor = fileno(file);
 
-  printf("[-] Running dictionary attack...\n");
+  printf(COLOR_BOLD_YELLOW "[-] Running dictionary attack...\n" COLOR_RESET);
   signal(SIGQUIT, sigquit_handler); // Register signal required to stop children
   for (int i = 0; i < args.num_processes_arg; i++) {
     pid_t pid = fork();
@@ -65,7 +66,9 @@ int main(int argc, char **argv) {
         flock(file_descriptor, LOCK_UN);
         hash_password(hash_out, line, strlen(line) - 1, salt, count);
         if (memcmp(thash, hash_out, SHA1_DIGEST_LEN) == 0) {
-          printf("[+] Password found: %s", line);
+          printf(COLOR_BOLD_GREEN "[+] Password found: " COLOR_BOLD_BLUE
+                                  "%s" COLOR_RESET,
+                 line);
           _exit(0);
         }
       }
@@ -83,7 +86,8 @@ int main(int argc, char **argv) {
     }
   }
 
-  printf("[!] Password was not found in word list\n");
+  printf(COLOR_BOLD_RED
+         "[!] Password was not found in word list\n" COLOR_RESET);
   fclose(file);
   return 1;
 }
